@@ -1,4 +1,4 @@
-## Copyright (C) 2018 Rolf Neugebauer.  All rights reserved.
+## Copyright (C) 2015-2018 Rolf Neugebauer.  All rights reserved.
 ## Copyright (C) 2015 Netronome Systems, Inc.  All rights reserved.
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");

@@ -1,0 +1,28 @@
+datafile = "pcie_bw.dat"
+out_file = "pcie_bw.pdf"
+
+set terminal pdf enhanced color solid size 5, 2.55
+set output out_file
+
+set multiplot
+set size 1,1
+set origin 0,0
+
+set xlabel 'Transfer Size (Bytes)' font ",10"
+set ylabel 'Bandwidth (Gb/s)' font ",10"
+set key bottom left font ",10" spacing 1
+
+set xrange [:1500]
+
+set mytics 4
+set xtics 256
+set mxtics 4
+set tics font ",8"
+set grid ytics mytics xtics mxtics lw 0.1 lc rgb "#F2F2F2"
+set offsets graph 0, 0, 0.01, 0.01
+
+plot \
+     datafile u 1:2 w l lw 2 dashtype 1 lc rgb 'black' 		t 'PCIe Memory Write (MWr)', \
+     ''       u 1:4 w l lw 2 dashtype 2 lc rgb 'red'  		t 'PCIe Memory Read (MRd)', \
+     ''       u 1:6 w l lw 2 dashtype 5 lc rgb 'forest-green' 	t 'Simultaneous MRd/MWr', \
+     ''       u 1:8 w l lw 2 dashtype 4 lc rgb 'dark-blue'  	t '40G Ethernet'

@@ -1,0 +1,27 @@
+datafile = "nic_bw.dat"
+out_file = "nic_bw.pdf"
+
+set terminal pdf enhanced color solid font ",20" size 5,2.7
+set output out_file
+
+set xlabel 'Transfer Size (Bytes)'
+set ylabel 'Bandwidth (Gb/s)'
+set key at 1450,35 spacing 1.5
+
+set xrange [:1500]
+
+set mytics 4
+set xtics 256
+set mxtics 4
+set tics
+set grid ytics mytics xtics mxtics lw 0.1 lc rgb 'gray'
+set offsets graph 0, 0, 0.01, 0.01
+
+plot \
+     datafile u 1:3  w l lw 3 dashtype 1 lc rgb 'black'        t 'Effective PCIe BW', \
+     ''       u 1:4  w l lw 3 dashtype 3 lc rgb 'dark-blue'    t '40G Ethernet', \
+     ''       u 1:5  w l lw 3 dashtype 4 lc rgb 'forest-green' t 'Simple NIC', \
+     ''       u 1:8  w l lw 3 dashtype 2 lc rgb 'gray40'       t 'Modern NIC (kernel driver)', \
+     ''       u 1:11 w l lw 3 dashtype 5 lc rgb 'red'          t 'Modern NIC (DPDK driver)'
+
+

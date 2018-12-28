@@ -20,7 +20,7 @@ achievable bandwidth by such a simple NIC.
 
 More realistic/modern devices typically batch some transactions, for
 example, they DMA groups of descriptors. The file
-[`niantic.py`](./models/niantic.py) contains a model for such a device,
+[`niantic.py`](./model/niantic.py) contains a model for such a device,
 a Intel 10Gb/s NIC, code-named Niantic.
 
 ## Sample code

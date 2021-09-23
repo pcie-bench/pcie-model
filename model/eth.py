@@ -20,7 +20,7 @@
 # pylint: disable=too-many-instance-attributes
 
 # Configuration options
-Variants = ['40GigE', '10GigE', 'GigE']
+Variants = ['400GigE', '200GigE', '100GigE', '50GigE', '40GigE', '25GigE', '10GigE', 'GigE']
 
 
 # Various fields on the wire, all in Bytes
@@ -31,10 +31,12 @@ Hdr_VLAN =        18  # Header including 802.18 Tag
 MinPayLoad =      46  # Minimum Payload size
 MinPayLoad_VLAN = 42  # Minimum Payload size
 CRC =              4  # Checksum
+
 IFG =             12  # Interframe Gap
 IFG_GigE =         8  # Optionally reduce IFG for 1GigE
 IFG_10GigE =       5  # Optionally reduce IFG for 10GigE
-IFG_40GigE =       5  # Optionally reduce IFG for 40GigE
+IFG_25GigE =       5  # Optionally reduce IFG for 10GigE
+IFG_40plusGigE =   1  # Optionally reduce IFG for 40GigE
 
 
 class Cfg(object):
@@ -54,8 +56,18 @@ class Cfg(object):
         self.vlan = vlan
         self.ifg_min = ifg_min
 
-        if variant == '40GigE':
+        if variant == '400GigE':
+            self.rate = long(400 * 1000 * 1000 * 1000)
+        elif variant == '200GigE':
+            self.rate = long(200 * 1000 * 1000 * 1000)
+        elif variant == '100GigE':
+            self.rate = long(100 * 1000 * 1000 * 1000)
+        elif variant == '50GigE':
+            self.rate = long(50 * 1000 * 1000 * 1000)
+        elif variant == '40GigE':
             self.rate = long(40 * 1000 * 1000 * 1000)
+        elif variant == '25GigE':
+            self.rate = long(25 * 1000 * 1000 * 1000)
         elif variant == '10GigE':
             self.rate = long(10 * 1000 * 1000 * 1000)
         elif variant == 'GigE':
@@ -71,12 +83,14 @@ class Cfg(object):
             self.min_pay = MinPayLoad
 
         if ifg_min:
-            if variant == '40GigE':
-                self.trail_sz = IFG_40GigE
+            if variant == 'GigE':
+                self.trail_sz = IFG_GigE
             elif variant == '10GigE':
                 self.trail_sz = IFG_10GigE
-            elif variant == 'GigE':
-                self.trail_sz = IFG_GigE
+            elif variant == '25GigE':
+                self.trail_sz = IFG_25GigE
+            else:
+                self.trail_sz = IFG_40plusGigE
         else:
             self.trail_sz = IFG
 

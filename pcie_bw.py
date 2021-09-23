@@ -42,10 +42,10 @@ def main():
                       help='Set the read completion boundary of the link')
     parser.add_option('--lanes', dest='lanes', type="string", action='store',
                       default='x8',
-                      help='Set num lanes (x2, x4, x8, or x16)')
+                      help='Set num lanes (x2, x4, x8, x16, or x32)')
     parser.add_option('--gen', dest='gen', type="string", action='store',
                       default='gen3',
-                      help='Set PCIe version (gen1, gen2, or gen3)')
+                      help='Set PCIe version (gen1, gen2, gen3, gen4, or gen5)')
     parser.add_option('--addr', dest='addr', type="int", action='store',
                       default=64,
                       help='Set the number of address bits (32 or 64)')

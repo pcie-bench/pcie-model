@@ -39,7 +39,7 @@ IFG_25GigE =       5  # Optionally reduce IFG for 10GigE
 IFG_40plusGigE =   1  # Optionally reduce IFG for 40GigE
 
 
-class Cfg(object):
+class Cfg():
     """A class representing an Ethernet link. Allows to get
     various metrics based on a specific configuration"""
 
@@ -57,21 +57,21 @@ class Cfg(object):
         self.ifg_min = ifg_min
 
         if variant == '400GigE':
-            self.rate = long(400 * 1000 * 1000 * 1000)
+            self.rate = 400 * 1000 * 1000 * 1000
         elif variant == '200GigE':
-            self.rate = long(200 * 1000 * 1000 * 1000)
+            self.rate = 200 * 1000 * 1000 * 1000
         elif variant == '100GigE':
-            self.rate = long(100 * 1000 * 1000 * 1000)
+            self.rate = 100 * 1000 * 1000 * 1000
         elif variant == '50GigE':
-            self.rate = long(50 * 1000 * 1000 * 1000)
+            self.rate = 50 * 1000 * 1000 * 1000
         elif variant == '40GigE':
-            self.rate = long(40 * 1000 * 1000 * 1000)
+            self.rate = 40 * 1000 * 1000 * 1000
         elif variant == '25GigE':
-            self.rate = long(25 * 1000 * 1000 * 1000)
+            self.rate = 25 * 1000 * 1000 * 1000
         elif variant == '10GigE':
-            self.rate = long(10 * 1000 * 1000 * 1000)
+            self.rate = 10 * 1000 * 1000 * 1000
         elif variant == 'GigE':
-            self.rate = long(1000 * 1000 * 1000)
+            self.rate = 1000 * 1000 * 1000
 
         self.pre_sz = Pre + SOF
 
@@ -104,13 +104,13 @@ class Cfg(object):
         else:
             p_sz = payload
         s = self.pre_sz + self.hdr_sz + p_sz + self.crc_sz + self.trail_sz
-        return long(self.rate / float(s * 8))
+        return self.rate / float(s * 8)
 
 
     def bps(self, payload):
         "Bits per second of payload bits"
         p = self.pps(payload)
-        return long(p * payload * 8)
+        return p * payload * 8
 
 
     def pps_ex(self, frame_sz):
@@ -124,7 +124,7 @@ class Cfg(object):
         """Bits per second of payload bits for a given payload. Assume
         @frame_sz includes ethernet header and CRC"""
         p = self.pps_ex(frame_sz)
-        return long(p * frame_sz * 8)
+        return p * frame_sz * 8
 
 
     def us_ex(self, frame_sz):
@@ -138,9 +138,9 @@ if __name__ == '__main__':
     # not much of a test
     e = Cfg()
 
-    print "%4s %9s %11s" % ("sz", "pps", "bps")
+    print("%4s %9s %11s" % ("sz", "pps", "bps"))
     for size in [64, 128, 256, 512, 1024, 1518]:
-        print "%4d %9d %11d" % (size, e.pps_ex(size), e.bps_ex(size))
+        print("%4d %9d %11d" % (size, e.pps_ex(size), e.bps_ex(size)))
 
 
     dat = open("eth.dat", "w")
@@ -151,7 +151,7 @@ if __name__ == '__main__':
               "\"Time (us)\" "
               "\n")
 
-    for sz in xrange(64, 1519):
+    for sz in range(64, 1519):
         _pps = e.pps_ex(sz)
         bw = e.bps_ex(sz)
         gbs = float(bw) / (1000 * 1000 * 1000)

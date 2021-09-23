@@ -47,7 +47,7 @@ for ver in GTs.keys():
 Raw = {}
 for ver in Vers:
     for lanes in Laness:
-        if not Raw.has_key(ver):
+        if not ver in Raw:
             Raw[ver] = {}
         Raw[ver][lanes] = Gbs[ver] * \
                           Laness_mul[Laness.index(lanes)]
@@ -165,9 +165,9 @@ TLP_bw = {}
 for ver in Vers:
     for lanes in Laness:
         for mps in MPSs:
-            if not TLP_bw.has_key(ver):
+            if not ver in TLP_bw:
                 TLP_bw[ver] = {}
-            if not TLP_bw[ver].has_key(lanes):
+            if not lanes in TLP_bw[ver]:
                 TLP_bw[ver][lanes] = {}
 
             ack_overhead = float(Ack_Size) / float(Ack_Limits[ver][lanes][mps])
@@ -213,7 +213,7 @@ TLP_CplD_Hdr_Szs = {
 # SIze of a sending a MSI
 MSI_SIZE = 4
 
-class Cfg(object):
+class Cfg():
     """A glorified struct to represent a specific PCIe device configuration"""
 
     def __init__(self, version, lanes, addr, ecrc,
@@ -261,12 +261,11 @@ class Cfg(object):
 
     def pp(self):
         """Print the configuration"""
-        print "PCIe configuration: Version=%s, Lanes=%s" % (self.version,
-                                                            self.lanes)
-        print "                    mps=%s, mrrs=%s, rcb=%s, rcb_chunks=%s" % \
-              (self.mps, self.mrrs, self.rcb, self.rcb_chunks)
-        print "                    addr=%d ecrc=%d" % (self.addr, self.ecrc)
-        print "                    => TLP BW=%.2f Gb/s" % (self.TLP_bw)
+        print("PCIe configuration: Version=%s, Lanes=%s" % (self.version, self.lanes))
+        print("                    mps=%s, mrrs=%s, rcb=%s, rcb_chunks=%s" % \
+              (self.mps, self.mrrs, self.rcb, self.rcb_chunks))
+        print("                    addr=%d ecrc=%d" % (self.addr, self.ecrc))
+        print("                    => TLP BW=%.2f Gb/s" % (self.TLP_bw))
 
 
 ## Functions to calculate PCIe bandwidth for different PCIe
@@ -277,7 +276,7 @@ DIR_RX = 1
 DIR_TX = 2
 DIR_BOTH = DIR_RX | DIR_TX
 
-class BW_Spec(object):
+class BW_Spec():
     """
     All functions take a object of this class as a argument. It
     specifies bandwidth for the configuration.  Bandwidth is either
@@ -306,7 +305,7 @@ class BW_Spec(object):
         self.type = bw_type
         return
 
-class BW_Res(object):
+class BW_Res():
     """
     A Bandwidth result object returned by all functions. Contains the
     required Raw TLP bandwidth and the effective bandwidth in each
@@ -325,9 +324,9 @@ if __name__ == '__main__':
     # Print out some useful data
     for mps in [128, 256]:
         for ver in Vers:
-            print "PCIe Version:", ver
-            print "Lanes Phys BW (Gb/s) Data BW (Gb/s) MPS=%d" % mps
+            print("PCIe Version:", ver)
+            print("Lanes Phys BW (Gb/s) Data BW (Gb/s) MPS=%d" % mps)
             for lanes in Laness:
-                print "%5s %6.2f %6.2f" % \
+                print("%5s %6.2f %6.2f" % \
                       (lanes, Raw[ver][lanes],
-                       TLP_bw[ver][lanes][mps])
+                       TLP_bw[ver][lanes][mps]))

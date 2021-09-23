@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 #
 ## Copyright (C) 2015-2018 Rolf Neugebauer.  All rights reserved.
 ## Copyright (C) 2015 Netronome Systems, Inc.  All rights reserved.
@@ -59,7 +59,7 @@ def main():
               "\n")
 
     max_val = 0
-    for size in xrange(64, 1500):
+    for size in range(64, 1500):
 
         w_bw = mem_bw.write(cfg, bw_spec, size - 4)
         rw_bw = mem_bw.read(cfg, bw_spec, size - 4)

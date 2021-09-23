@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 #
 ## Copyright (C) 2015-2018 Rolf Neugebauer.  All rights reserved.
 ## Copyright (C) 2015 Netronome Systems, Inc.  All rights reserved.
@@ -66,7 +66,7 @@ def main():
                        mrrs=options.MRRS,
                        rcb=options.RCB)
 
-    print "PCIe Config:"
+    print("PCIe Config:")
     pciecfg.pp()
 
     ethcfg = eth.Cfg('40GigE')
@@ -87,7 +87,7 @@ def main():
               "\"40G Ethernet Frame time (ns)\" "
               "\n")
 
-    for size in xrange(1, 1500 + 1):
+    for size in range(1, 1500 + 1):
         wr_bw = mem_bw.write(pciecfg, bw_spec, size)
         rd_bw = mem_bw.read(pciecfg, bw_spec, size)
         rdwr_bw = mem_bw.read_write(pciecfg, bw_spec, size)

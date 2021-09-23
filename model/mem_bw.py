@@ -121,7 +121,7 @@ def read(pcicfg, bwspec, size):
 
     else: # BW_EFF
         if not bwspec.tx_bw == 0:
-            print "Effective TX BW for reads is always 0"
+            print("Effective TX BW for reads is always 0")
             bwspec.tx_bw = 0
         eff_tx_bw = bwspec.tx_bw
         eff_rx_bw = bwspec.rx_bw

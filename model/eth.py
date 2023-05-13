@@ -19,6 +19,8 @@
 # pylint: disable=invalid-name
 # pylint: disable=too-many-instance-attributes
 
+import sys
+
 # Configuration options
 Variants = ['400GigE', '200GigE', '100GigE', '50GigE', '40GigE', '25GigE', '10GigE', 'GigE']
 
@@ -135,12 +137,17 @@ class Cfg():
 
 
 if __name__ == '__main__':
-    # not much of a test
-    e = Cfg()
+    variant = '100GigE'
+    if len(sys.argv) == 2:
+        variant = sys.argv[1]
 
-    print("%4s %9s %11s" % ("sz", "pps", "bps"))
-    for size in [64, 128, 256, 512, 1024, 1518]:
-        print("%4d %9d %11d" % (size, e.pps_ex(size), e.bps_ex(size)))
+
+    # not much of a test
+    e = Cfg(variant)
+
+    print("%4s %9s %11s %s" % ("sz", "pps", "bps", "ns"))
+    for sz in [64, 128, 256, 512, 1024, 1518, 4096, 9000]:
+        print("%4d %9d %11d %.2f" % (sz, e.pps_ex(sz), e.bps_ex(sz), 1000.0 * e.us_ex(sz)))
 
 
     dat = open("eth.dat", "w")

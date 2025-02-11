@@ -41,7 +41,5 @@ associated `gnuplot` files).
 
 ## More information
 
-For more information see our SIGCOMM 2018 paper "Understanding PCIe
-Performance for End Host Networking".
-
-TODO: Add link once available.
+For more information see our SIGCOMM 2018 paper ["Understanding PCIe
+Performance for End Host Networking"](https://dl.acm.org/doi/10.1145/3230543.3230560).
